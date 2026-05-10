@@ -73,4 +73,53 @@ describe('Suíte de Testes Fraca para 50 Operações Aritméticas', () => {
   test('48. deve calcular o dobro de um número', () => { expect(dobro(10)).toBe(20); });
   test('49. deve calcular o triplo de um número', () => { expect(triplo(10)).toBe(30); });
   test('50. deve calcular a metade de um número', () => { expect(metade(20)).toBe(10); });
+describe('Testes adicionais para matar mutantes sobreviventes', () => {
+  test('deve validar mensagens e caminhos de erro', () => {
+    expect(() => divisao(5, 0)).toThrow(/Divis.o por zero n.o . permitida/);
+    expect(() => raizQuadrada(-1)).toThrow(/N.o . poss.vel calcular a raiz quadrada de um n.mero negativo/);
+    expect(() => fatorial(-1)).toThrow(/Fatorial n.o . definido para n.meros negativos/);
+    expect(() => maximoArray([])).toThrow(/Array vazio .* possui valor m.ximo/);
+    expect(() => minimoArray([])).toThrow(/Array vazio .* possui valor m.nimo/);
+    expect(() => inverso(0)).toThrow(/N.o . poss.vel inverter o n.mero zero/);
+    expect(() => medianaArray([])).toThrow(/Array vazio .* possui mediana/);
+  });
+
+  test('deve validar casos de fronteira das operacoes basicas', () => {
+    expect(raizQuadrada(0)).toBe(0);
+    expect(fatorial(0)).toBe(1);
+    expect(fatorial(1)).toBe(1);
+    expect(mediaArray([])).toBe(0);
+  });
+
+  test('deve validar os ramos falsos das checagens booleanas', () => {
+    expect(isPar(101)).toBe(false);
+    expect(isImpar(8)).toBe(false);
+    expect(isDivisivel(10, 3)).toBe(false);
+    expect(isMaiorQue(5, 10)).toBe(false);
+    expect(isMaiorQue(5, 5)).toBe(false);
+    expect(isMenorQue(10, 5)).toBe(false);
+    expect(isMenorQue(5, 5)).toBe(false);
+    expect(isEqual(7, 8)).toBe(false);
+  });
+
+  test('deve validar numeros primos, compostos e limites', () => {
+    expect(isPrimo(1)).toBe(false);
+    expect(isPrimo(4)).toBe(false);
+    expect(produtoArray([])).toBe(1);
+    expect(clamp(-5, 0, 10)).toBe(0);
+    expect(clamp(15, 0, 10)).toBe(10);
+    expect(clamp(0, 0, 10)).toBe(0);
+    expect(clamp(10, 0, 10)).toBe(10);
+  });
+
+  test('deve validar conversoes com valores que nao mascaram operadores', () => {
+    expect(celsiusParaFahrenheit(100)).toBe(212);
+    expect(fahrenheitParaCelsius(212)).toBe(100);
+  });
+
+  test('deve calcular medianas pares e arrays desordenados', () => {
+    expect(medianaArray([5, 1, 3])).toBe(3);
+    expect(medianaArray([7, 1, 3, 5])).toBe(4);
+  });
+});
 });
